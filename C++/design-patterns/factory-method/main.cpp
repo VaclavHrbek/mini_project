@@ -31,10 +31,40 @@ Note, despite its name, product creation is not the primary responsibility of th
 */
 
 struct Creator {
+	virtual ConcreteInterface* factory_method() const = 0;
+/**
+   * Also note that, despite its name, the Creator's primary responsibility is
+   * not creating products. Usually, it contains some core business logic that
+   * relies on Product objects, returned by the factory method. Subclasses can
+   * indirectly change that business logic by overriding the factory method and
+   * returning a different type of product from it.
+   */
+
+	void some_operation() const {
+		ConcreteInterface* product = factory_method();
+
+	}
 
 };
 
+struct ConcreteCreator1 : public Creator {
+	ConcreteInterface* factory_method() const override {
+		return new ConcreteClassA;
+	}
+};
+
+struct ConcreteCreator2 : public Creator {
+	ConcreteInterface* factory_method() const override {
+		return new ConcreteClassB;
+	}
+};
+
+
 
 int main(){
+	Creator* cr1 = new ConcreteCreator1();
+	Creator* cr2 = new ConcreteCreator2();
+	cr1->some_operation();
+	cr2->some_operation();
 	
 }
