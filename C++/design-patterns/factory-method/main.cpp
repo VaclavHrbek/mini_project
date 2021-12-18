@@ -1,10 +1,12 @@
 #include <iostream>
+#include <memory>
 
 /*
  * The Product declares the interface, which is common to all objects that can be produced by the creator and its subclasses.
 */
 struct ConcreteInterface {
 	virtual int value() = 0;
+	virtual ~ConcreteInterface(){};
 };
 /*
  * Concrete Products are different implementations of the product interface.
@@ -31,7 +33,8 @@ Note, despite its name, product creation is not the primary responsibility of th
 */
 
 struct Creator {
-	virtual ConcreteInterface* factory_method() const = 0;
+	virtual std::unique_ptr<ConcreteInterface> factory_method() const = 0;
+	virtual ~Creator(){};
 /**
    * Also note that, despite its name, the Creator's primary responsibility is
    * not creating products. Usually, it contains some core business logic that
@@ -41,29 +44,30 @@ struct Creator {
    */
 
 	void some_operation() const {
-		ConcreteInterface* product = factory_method();
+		std::unique_ptr<ConcreteInterface> product = factory_method();
+		std::cout << "Creation of concrete product\n";
 
 	}
 
 };
 
 struct ConcreteCreator1 : public Creator {
-	ConcreteInterface* factory_method() const override {
-		return new ConcreteClassA;
+	std::unique_ptr<ConcreteInterface> factory_method() const override {
+		return  std::make_unique<ConcreteClassA>();
 	}
 };
 
 struct ConcreteCreator2 : public Creator {
-	ConcreteInterface* factory_method() const override {
-		return new ConcreteClassB;
+	std::unique_ptr<ConcreteInterface> factory_method() const override {
+		return  std::make_unique<ConcreteClassB>();
 	}
 };
 
 
 
 int main(){
-	Creator* cr1 = new ConcreteCreator1();
-	Creator* cr2 = new ConcreteCreator2();
+	auto cr1 = std::make_unique<ConcreteCreator1>();
+	auto cr2 = std::make_unique<ConcreteCreator2>();
 	cr1->some_operation();
 	cr2->some_operation();
 	
