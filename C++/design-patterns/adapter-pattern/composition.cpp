@@ -34,7 +34,7 @@ class Adapter : public Target {
   Adaptee _adaptee;
 
  public:
-  Adapter(Adaptee& adaptee) : _adaptee(adaptee) {}
+  explicit Adapter(Adaptee& adaptee) : _adaptee(adaptee) {}
   std::string Request() const override {
     auto to_reverse = _adaptee.SpecificRequest();
     std::reverse(to_reverse.begin(), to_reverse.end());
