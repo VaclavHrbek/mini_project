@@ -1,0 +1,10 @@
+        -:    0:Source:second_fun.c
+        -:    0:Graph:main.gcno
+        -:    0:Data:main.gcda
+        -:    0:Runs:1
+        -:    1:
+        -:    2:
+       10:    3:int add(int var){
+       10:    4:	var++;
+       10:    5:	return var;
+        -:    6:}

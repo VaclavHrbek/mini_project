@@ -1,0 +1,16 @@
+        -:    0:Source:main.c
+        -:    0:Graph:main.gcno
+        -:    0:Data:main.gcda
+        -:    0:Runs:1
+        -:    1:#include "second_fun.c"
+        -:    2:#include <stdio.h>
+        -:    3:
+        1:    4:int main(void){
+        1:    5:	int a = 10;
+        1:    6:	int b = 16;
+       11:    7:	for(int i = 0; i != a; ++i){
+       10:    8:		b = add(b);
+       10:    9:		printf("%d", b);
+        -:   10:	}
+        1:   11:	return 0;
+        -:   12:}
