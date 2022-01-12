@@ -1,14 +1,12 @@
 #include <stdio.h>
 
 #include "c/file_1.h"
-#include "c/file_2.h"
-#include "openacc/file_1.h"
+#include "cuda/cuda_header.h"
 
 int main(void){
-	printf("Z main source file\n");
-	fun_c_1(2);
-	fun_2();
-
-	openacc_fun_1(3);
+	printf("From main source file\n");
+	c_function(2);
+	cuda_function(4);
+	//openacc_function(6);  // openacc_ prefix because the acc_ prefix is reserved by ACC runtime library
 	return 0;
 }

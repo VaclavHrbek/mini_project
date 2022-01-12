@@ -17,13 +17,14 @@ app_src_files := $(wildcard $(app_dir)/*.c)
 #openacc_src_files := $(wildcard $(openacc_src_dir)/*.c) 
 cuda_src_files := $(wildcard $(cuda_src_dir)/*.cu)
 
+cuda_obj_files := $(patsubst %.cu, %.o ,$(patsubst $(src_dir)/%, $(build_dir)/%, $(cuda_src_files)))
+
 c_obj_files := $(patsubst %.c, %.o ,$(patsubst $(src_dir)/%, $(build_dir)/%, $(c_src_files)))
 c_obj_files += $(patsubst $(app_dir)/%.c, $(build_dir)/%.o, $(app_src_files))
 
-cuda_obj_files := $(patsubst %.cu, %.o ,$(patsubst $(src_dir)/%, $(build_dir)/%, $(cuda_src_files)))
 
-CC = gcc -O
-CFLAGS = -I$(include_c_dir)
+CC = gcc 
+CFLAGS = -I$(include_c_dir) -O
 NVCC = nvcc
 NVCFLAGS = -I$(include_c_dir) 
 LFLAGS = -L/usr/local/cuda/lib64 -lcudart -lstdc++
@@ -32,6 +33,8 @@ all: $(c_obj_files)  main
 
 $(c_obj_files): | $(build_dir)
 
+$(build_dir)/c/%.o: $(c_src_dir)/%.c
+	$(CC) -c $(CFLAGS) $< -o $@
 	
 $(build_dir)/%.o: $(app_dir)/%.c
 	$(CC) -c $(CFLAGS) $< -o $@
