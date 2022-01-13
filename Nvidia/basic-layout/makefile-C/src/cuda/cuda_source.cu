@@ -1,4 +1,4 @@
-#include "cuda/cuda_header.hpp"
+#include "cuda/cuda_header.cuh"
 
 __global__
 void device_function(int* var){
