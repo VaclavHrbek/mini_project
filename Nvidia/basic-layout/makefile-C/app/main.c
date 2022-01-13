@@ -1,7 +1,7 @@
 #include <stdio.h>
 
 #include "c/file_1.h"
-#include "cuda/cuda_header.h"
+#include "cuda/cuda_header.hpp"
 
 int main(void){
 	printf("From main source file\n");

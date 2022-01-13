@@ -1,4 +1,4 @@
-#include "cuda/cuda_header.h"
+#include "cuda/cuda_header.hpp"
 
 __global__
 void device_function(int* var){
@@ -6,7 +6,6 @@ void device_function(int* var){
 }
 
 // Wrapper around cuda kernel
-extern "C"
 void cuda_function(int var){
 	int* i;
 	int* d_var;
@@ -16,12 +15,17 @@ void cuda_function(int var){
 	*i = var;
 
 	cudaMemcpy(d_var, i, sizeof(int), cudaMemcpyHostToDevice);
-	device_function<<<1, 1>>>(d_var);
+	device_function<<<2, 3>>>(d_var);
 	cudaMemcpy(i, d_var, sizeof(int), cudaMemcpyDeviceToHost);
 
 	printf("From .cu file. Kernel returned: %d\n", *i);
 
 	cudaFree(d_var);
 	free(i);
+}
+
+
+void cuda_function_call_c_function(){
+	c_function(3);
 }
 
