@@ -182,11 +182,33 @@ mode "resize" {
 
 bindsym $mod+r mode "resize"
 
+# Colors:
+set $background #9B9B9B
+set $focus_background #7A7A7A
+set $focus_text #D7D7D7
+set $focus_border #222222
+set $unfocus_background #7C7C7C
+set $unfocus_text #222222
+set $unfocus_border #222222
+set $urgent_background
+set $urgent_border
+set $urgent_text #C30000
+
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
 bar {
-        status_command i3status
+	status_command i3status
+	strip_workspace_numbers no
+	colors {
+		background $background
+		statusline $unfocus_text
+		focused_workspace $focus_border $focus_background $focus_text
+		#active_workspace $unfocus_border $unfocus_background $unfocus_text
+		inactive_workspace $unfocus_border $unfocus_background $unfocus_text
+		urgent_workspace $unfocus_border $unfocus_background $urgent_text
+		}
 }
 
 # hide edge
 hide_edge_borders both  
+
