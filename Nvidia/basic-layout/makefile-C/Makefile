@@ -7,6 +7,10 @@ CFLAGS = -I$(include_dir) -O
 LDFLAGS = -L/usr/local/cuda/lib64 -lcudart -lstdc++
 NVCC = nvcc
 NVCFLAGS = -I$(include_dir) 
+# For linking device application between them self, one must use linker of nvcc!  
+# Linker create a object file that must be providen to executable.
+# And particular linker flags: Define architecture, -dlink
+# NVCLDFLAGS = -arch_sm=60 -dlink
 
 file_dir = .
 build_dir = $(file_dir)/build
